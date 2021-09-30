@@ -43,7 +43,7 @@ app.post("/", (req, res) => {
             }
 
             const d = new Date();
-            const time = d.toLocaleTimeString();
+            const time = d.toLocaleTimeString(undefined, { timeZone: 'Asia/Kolkata' });
             const date = d.getDate();
             const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             const monthName = months[d.getMonth()];
