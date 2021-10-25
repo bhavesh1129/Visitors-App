@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -9,10 +13,10 @@ const visitorInfo = require('./models/info');
 const sgMail = require('@sendgrid/mail');
 
 
-const API_KEY = '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';
+const API_KEY = process.env.API_KEY;
 sgMail.setApiKey(API_KEY);
 
-mongoose.connect('mongodb+srv://admin-bhavesh:Test-123@cluster0.620x2.mongodb.net/visitors-db')
+mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('DB Connected'))
     .catch((err) => console.log(err));
 
@@ -50,7 +54,7 @@ app.post("/", (req, res) => {
 
             const sendMsg = {
                 to: req.body.email,
-                from: "developerbhaveshgarg@gmail.com",
+                from: process.env.MY_ID,
                 subject: "Your Entry Status",
                 text: "send using sendgrid",
                 html: `
